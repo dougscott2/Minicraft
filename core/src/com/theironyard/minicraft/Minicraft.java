@@ -23,7 +23,7 @@ public class Minicraft extends ApplicationAdapter {
     float xv = 0;
     float yv = 0;
 
-    final float MAX_VELOCITY = 100;
+    final float MAX_VELOCITY = 1000;
 
     @Override
     public void create () {
@@ -41,16 +41,23 @@ public class Minicraft extends ApplicationAdapter {
         left.flip(true, false);
         stand = grid[6][2];
     }
-
-
     @Override
     public void render () {
-
         move();
         draw();
-
     }
     void draw() {
+        float oldX = x;
+        float oldY = y;
+        x += xv * Gdx.graphics.getDeltaTime();
+        y += yv * Gdx.graphics.getDeltaTime();
+
+        if(x < 0 || x > (Gdx.graphics.getWidth()-WIDTH)){
+            x = oldX;
+        }
+        if(y < 0 || y > (Gdx.graphics.getHeight()-HEIGHT)){
+            y = oldY;
+        }
         time = Gdx.graphics.getDeltaTime();
         TextureRegion img;
         if (Math.abs(yv) > Math.abs(xv)) {
@@ -94,17 +101,7 @@ public class Minicraft extends ApplicationAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)){
             xv = MAX_VELOCITY * -1;
         }
-        float xLimit = x;
-        float yLimit = y;
-        x += xv * Gdx.graphics.getDeltaTime();
-        y += yv * Gdx.graphics.getDeltaTime();
 
-        if(x < 0 || x > (Gdx.graphics.getWidth()-WIDTH)){
-            x = xLimit;
-        }
-        if(y < 0 || y > (Gdx.graphics.getHeight()-HEIGHT)){
-            y = yLimit;
-        }
         xv *= 0.3;//dampening
         yv *= 0.3;
     }
