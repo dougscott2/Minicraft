@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import javafx.beans.WeakInvalidationListener;
 
 public class Minicraft extends ApplicationAdapter {
     FitViewport viewPort;
@@ -52,7 +53,7 @@ public class Minicraft extends ApplicationAdapter {
         x += xv * Gdx.graphics.getDeltaTime();
         y += yv * Gdx.graphics.getDeltaTime();
 
-        if(x < 0 || x > (Gdx.graphics.getWidth()-WIDTH)){
+       if(x < 0 || x > (Gdx.graphics.getWidth()-WIDTH)){
             x = oldX;
         }
         if(y < 0 || y > (Gdx.graphics.getHeight()-HEIGHT)){
@@ -83,8 +84,6 @@ public class Minicraft extends ApplicationAdapter {
         }
         batch.end();
     }
-
-
     void move() {
         if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)){ //WASD controls
             yv = MAX_VELOCITY;
@@ -108,6 +107,5 @@ public class Minicraft extends ApplicationAdapter {
     @Override
     public void resize(int width, int height){
         viewPort.update(width, height);
-        // camera.setToOrtho(true, width, height);
     }
 }
